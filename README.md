@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# 📕 Todo App with React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+**React**를 사용하여 구현된 Todo App
 
-In the project directory, you can run:
+- 참고 **'https://academy.dream-coding.com/'**
 
-### `yarn start`
+> 사용자는 할 일을 추가, 수정, 삭제할 수 있으며, 'All' , 'Active' , 'Completed' 상태에 따라 할 일을 필터링할 수 있다. 또한 다크 모드 지원이 가능하다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- 할 일 추가 , 수정 , 삭제
+- 할 일 필터링 : '전체', '활성', '완료'
+- **다크 모드** 지원
+- **local storage** 저장
 
-### `yarn test`
+## Test
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![화면 기록 2023-09-05 오후 11 17 38](https://github.com/Tultae/other-react-todo-app/assets/129868019/9e3bf369-916d-4029-b6eb-72c07bf4d5a1)
 
-### `yarn build`
+## Usage
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 할 일을 추가하기 위해 하단의 텍스트 박스에 내용을 입력하고 'Add' 버튼을 클릭한다.
+- 할 일 옆의 체크박스를 클릭하여 상태를 'Active'과 'Completed' 사이에서 변경할 수 있다.
+- 할 일 옆의 휴지통 아이콘을 클릭하여 할 일을 삭제할 수 있다.
+- 상단의 필터 버튼을 사용하여 할 일을 'All', 'Active', 'Completed'로 필터링할 수 있다.
+- 상단의 달 / 태양 아이콘을 클릭하여 다크 모드를 활성화 / 비활성화할 수 있다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### 새로고침 후에도 list 유지
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **local storage** 사용
+  ![화면 기록 2023-09-05 오후 11 22 44](https://github.com/Tultae/other-react-todo-app/assets/129868019/0132b566-4a30-4ec1-919e-db947b024b58)
 
-### `yarn eject`
+```javascript
+const filters = ['all', 'active', 'completed'];
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+const AppTodo = () => {
+  const [filter, setFilter] = useState(filters[0]);
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  return (
+    <DarkModeProvider>
+      <Header filters={filters} filter={filter} onFilterChange={setFilter} />
+      <Todo filter={filter} />
+    </DarkModeProvider>
+  );
+};
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- 초기 filter 상태는 '**all**' 이므로 리렌더링시 '**all**'로 초기화
